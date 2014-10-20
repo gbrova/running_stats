@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Your run:</h1>
+  <h3><small>(or walk, bike ride, swim, etc)</small></h3>
+  <br>
+  <form class="form-horizontal" action="" method="post" name="login">
+    <div class="form-group">
+      {{ form.hidden_tag() }}
+      <p>
+          {{ form.conversion_query(size=60, class="form-control", placeholder="e.g. 5.2 kilometers in 48 minutes, or marathon in 3:10:00") }}
+      </p>
+    </div>
+  </form>
+
+  {% if result and result.error_msg %}
+  <br>
+  <div class="alert alert-danger" role="alert">
+    <strong>Oh snap!</strong> {{ result.error_msg }} 
+  </div>
+
+
+  {% elif result %}
+  <br>
+  <h3>That's:</h3>
+  <h2>{{ result.dist_val }} <small> {{ result.dist_unit }} </small> </h2>
+  <h2><small> in </small> {{ result.time_val }} <small> {{ result.time_unit }} </small> </h2>
+  <h2><small> at </small> {{ result.speed_val }} <small> {{ result.speed_unit }} ( </small> {{ result.pace_val }} <small> {{ result.pace_unit }} ) </small></p>
+  {% endif %}
+
+{% endblock %}
